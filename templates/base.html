@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>{% block title %}Admin Dashboard{% endblock %}</title></head>
+<body>
+  <h1>Admin Panel</h1>
+  {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+      <p style="color:green;">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+  {% if current_user.is_authenticated %}
+    <p>Logged in as {{ current_user.username }} |
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+  {% else %}
+    <p><a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('register') }}">Register</a></p>
+  {% endif %}
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>
